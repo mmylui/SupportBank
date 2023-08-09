@@ -5,11 +5,14 @@ TransactionManager transactionManager = new TransactionManager(accountManager);
 transactionManager.MakeTransactions(transactionStrings);
 // transactionManager.PrintAllTransactions();
 
-Account firstAccount = accountManager.GetAccountByName("Ben B");
-// firstAccount.PrintAccount();
-accountManager.PrintAccountBalances();
+// accountManager.PrintAccountBalances();
 
+UserRequestHandler userRequestHandler= new UserRequestHandler(accountManager, transactionManager);
 
-Console.ReadLine();
+Console.WriteLine("Enter command:\n'List All' - Show All Account Balances.\n'List Account' - Lets you specify a user to view");
+string userCommand = Console.ReadLine();
+if(userCommand != null){
+    userRequestHandler.HandleRequest(userCommand);
+}
 
 
