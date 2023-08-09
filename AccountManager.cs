@@ -16,5 +16,12 @@ class AccountManager
         return Accounts[accountIndex];
     }
 
+    public void PrintAccountBalances(){
+        Console.WriteLine("Account Balances:");
+        foreach (Account account in Accounts){
+            account.PrintBalance();
+        }
+    }
+
     
 }

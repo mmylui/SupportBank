@@ -6,7 +6,8 @@ transactionManager.MakeTransactions(transactionStrings);
 // transactionManager.PrintAllTransactions();
 
 Account firstAccount = accountManager.GetAccountByName("Ben B");
-firstAccount.PrintAccount();
+// firstAccount.PrintAccount();
+accountManager.PrintAccountBalances();
 
 
 Console.ReadLine();

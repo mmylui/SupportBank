@@ -11,21 +11,37 @@ class Account
         AccountTransactions = new List<Transaction>();
     }
 
-    public void ReceiveMoney(Transaction transaction){
+    public void ReceiveMoney(Transaction transaction)
+    {
         AccountTransactions.Add(transaction);
         Balance += transaction.Amount;
     }
-    public void SendMoney(Transaction transaction){
+    public void SendMoney(Transaction transaction)
+    {
         AccountTransactions.Add(transaction);
         Balance -= transaction.Amount;
     }
 
-    public void PrintAccount(){
+    public void PrintAccount()
+    {
         Console.WriteLine($"Printing transactions for {Name}:");
         foreach (Transaction transaction in AccountTransactions)
         {
             transaction.PrintTransaction();
         }
-        Console.WriteLine($"Balance: {Balance}");
+        Console.WriteLine($"Balance: £{Balance}");
+    }
+
+    public void PrintBalance()
+    {
+        if (Balance < 0)
+        {
+            Console.WriteLine($"\tName: {Name}\tBalance: -£{Balance*-1}");
+        }
+        else
+        {
+
+            Console.WriteLine($"\tName: {Name}\tBalance: £{Balance}");
+        }
     }
 }
