@@ -2,10 +2,12 @@ class TransactionManager
 {
     public List<Transaction> Transactions
     { get; }
+    public AccountManager AccountManager { get; }
 
-    public TransactionManager()
+    public TransactionManager(AccountManager accountManager)
     {
         Transactions = new List<Transaction>();
+        AccountManager = accountManager;
     }
 
 
@@ -13,7 +15,7 @@ class TransactionManager
     {
         foreach (TransactionString transactionString in transactionStrings)
         {
-            var newTransaction = new Transaction(transactionString);
+            var newTransaction = new Transaction(transactionString, AccountManager);
             Transactions.Add(newTransaction);
         }
 

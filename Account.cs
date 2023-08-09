@@ -1,6 +1,6 @@
 class Account
 {
-    public string Name;
+    public string Name { get; }
     public decimal Balance;
     public List<Transaction> AccountTransactions;
 

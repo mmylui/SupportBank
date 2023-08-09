@@ -2,6 +2,10 @@ class AccountManager
 {
     public List <Account> Accounts
     { get; set; }
+
+    public AccountManager(){
+        Accounts = new List<Account>();
+    }
     public Account GetAccountByName(string name)
     {
         int accountIndex = Accounts.FindIndex(account => account.Name == name);

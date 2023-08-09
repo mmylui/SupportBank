@@ -3,16 +3,16 @@ class Transaction
 {
     public DateTime Date { get; set; }
 
-    public string To { get; set; }
-    public string From { get; set; }
+    public Account To { get; set; }
+    public Account From { get; set; }
     public string Narrative { get; set; }
     public decimal Amount { get; set; }
     
-    public Transaction(TransactionString transactionString)
+    public Transaction(TransactionString transactionString, AccountManager accountManager)
     {   
         Date = DateTime.Parse(transactionString.Date, CultureInfo.GetCultureInfo("en-GB").DateTimeFormat);
-        From = transactionString.From;
-        To = transactionString.To;
+        From = accountManager.GetAccountByName( transactionString.From);
+        To = accountManager.GetAccountByName(transactionString.To);
         Narrative = transactionString.Narrative;
         Amount = decimal.Parse(transactionString.Amount);
     }
@@ -21,7 +21,7 @@ class Transaction
     {
         Console.WriteLine("===========================");
         Console.WriteLine($"Date: {Date.Day}/{Date.Month}/{Date.Year}");
-        Console.WriteLine($"\tFrom: {From} To: {To}");
+        Console.WriteLine($"\tFrom: {From.Name} To: {To.Name}");
         Console.WriteLine($"\tFor: {Narrative}");
         Console.WriteLine($"\tAmount: £{Amount}");
     }
