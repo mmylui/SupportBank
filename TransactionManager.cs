@@ -16,9 +16,15 @@ class TransactionManager
         foreach (TransactionString transactionString in transactionStrings)
         {
             var newTransaction = new Transaction(transactionString, AccountManager);
-            Transactions.Add(newTransaction);
+            ProcessTransaction(newTransaction);
         }
 
+    }
+
+    public void ProcessTransaction(Transaction transaction){
+        Transactions.Add(transaction);
+        transaction.To.ReceiveMoney(transaction);
+        transaction.From.SendMoney(transaction);
     }
 
     public void PrintAllTransactions()
