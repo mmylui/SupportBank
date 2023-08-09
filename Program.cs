@@ -1,2 +1,7 @@
 ﻿CSVReader line = new CSVReader();
-line.PrintFile();
+List<TransactionString> transactionStrings = line.GetTransactionStrings();
+TransactionManager transactionManager = new TransactionManager();
+transactionManager.MakeTransactions(transactionStrings);
+Console.ReadLine();
+
+
