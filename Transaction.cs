@@ -19,6 +19,10 @@ class Transaction
 
     public void PrintTransaction()
     {
-        Console.WriteLine($"Date: {Date} From: {From} To: {To} Narrative: {Narrative} Amount: {Amount}");
+        Console.WriteLine("===========================");
+        Console.WriteLine($"Date: {Date.Day}/{Date.Month}/{Date.Year}");
+        Console.WriteLine($"\tFrom: {From} To: {To}");
+        Console.WriteLine($"\tFor: {Narrative}");
+        Console.WriteLine($"\tAmount: £{Amount}");
     }
 }

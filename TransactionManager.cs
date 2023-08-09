@@ -19,4 +19,13 @@ class TransactionManager
 
     }
 
+    public void PrintAllTransactions()
+    {
+        Console.WriteLine("Printing all transactions:");
+        foreach (Transaction transaction in Transactions)
+        {
+            transaction.PrintTransaction();
+        }
+    }
+
 }
