@@ -6,14 +6,43 @@ class AccountManager
     public AccountManager(){
         Accounts = new List<Account>();
     }
-    public Account GetAccountByName(string name)
+    public Account GetAccountByIndex(int accountIndex)
     {
-        int accountIndex = Accounts.FindIndex(account => account.Name == name);
-        if(accountIndex == -1) {
-            Accounts.Add(new Account (name));
-            accountIndex = Accounts.Count - 1;
-        }
         return Accounts[accountIndex];
+    }
+
+    public int GetAccountIndex(string name)
+    {
+        return Accounts.FindIndex(account => account.Name == name);
+    }
+
+    public int CreateAccount(string name)
+    {
+            Accounts.Add(new Account (name));
+            return Accounts.Count - 1;
+    }
+
+    public Account GetAccountForTransaction (string name)
+    {
+        int accountIndex = GetAccountIndex(name);
+        if (accountIndex == -1)
+        {
+            accountIndex = CreateAccount(name);
+        }
+        return GetAccountByIndex (accountIndex);
+    }
+
+    public void PrintAccountTransactions(string name)
+    {
+        int accountIndex = GetAccountIndex(name);
+        if (accountIndex == -1)
+        {
+            Console.WriteLine("This account does not exist.");
+        } else
+        {
+            var account = GetAccountByIndex(accountIndex);
+            account.PrintAccount();
+        }
     }
 
     public void PrintAccountBalances(){
@@ -23,5 +52,5 @@ class AccountManager
         }
     }
 
-    
+
 }

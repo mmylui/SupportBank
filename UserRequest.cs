@@ -18,15 +18,7 @@ class UserRequestHandler
             case "List Account":
                 Console.Write("Enter Name: ");
                 string accountName = Console.ReadLine();
-                Account account = AccountManager.GetAccountByName(accountName);
-                if (account != null)
-                {
-                    account.PrintAccount();
-                }
-                else
-                {
-                    Console.WriteLine($"Account Not found for {accountName}");
-                }
+                AccountManager.PrintAccountTransactions(accountName);
                 break;
             default:
                 Console.WriteLine("Invalid command");

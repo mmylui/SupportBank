@@ -11,8 +11,8 @@ class Transaction
     public Transaction(TransactionString transactionString, AccountManager accountManager)
     {   
         Date = DateTime.Parse(transactionString.Date, CultureInfo.GetCultureInfo("en-GB").DateTimeFormat);
-        From = accountManager.GetAccountByName( transactionString.From);
-        To = accountManager.GetAccountByName(transactionString.To);
+        From = accountManager.GetAccountForTransaction( transactionString.From);
+        To = accountManager.GetAccountForTransaction(transactionString.To);
         Narrative = transactionString.Narrative;
         Amount = decimal.Parse(transactionString.Amount);
     }
