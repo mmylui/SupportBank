@@ -8,23 +8,14 @@ class UserRequestHandler
         TransactionManager = transactionManager;
     }
 
-    public void HandleRequest(string request)
+    public void HandleListAll()
     {
-        switch (request)
-        {
-            case "List All":
-                AccountManager.PrintAccountBalances();
-                break;
-            case "List Account":
-                Console.Write("Enter Name: ");
-                string accountName = Console.ReadLine();
-                AccountManager.PrintAccountTransactions(accountName);
-                break;
-            default:
-                Console.WriteLine("Invalid command");
-                break;
-        }
+        AccountManager.PrintAccountBalances();
+    }
 
+    public void HandleListAccount(string accountName)
+    {
+        AccountManager.PrintAccountTransactions(accountName);
     }
 
 }
