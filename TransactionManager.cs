@@ -10,13 +10,32 @@ class TransactionManager
         AccountManager = accountManager;
     }
 
+    public List<int> ValidateTransactions(List<TransactionString> transactionStrings)
+    {
+        List<int> invalidIndexes = new List<int>();
+        TransactionValidator transactionValidator = new TransactionValidator();
+
+        for (int i = 0; i < transactionStrings.Count; i ++)
+        {
+            if (!transactionValidator.IsValidTransaction(transactionStrings[i]))
+            {
+                invalidIndexes.Add(i);
+            }
+        }
+        
+        return invalidIndexes;
+    }
 
     public void MakeTransactions(List<TransactionString> transactionStrings)
-    {
+    {   TransactionValidator transactionValidator = new TransactionValidator();
+
         foreach (TransactionString transactionString in transactionStrings)
         {
-            var newTransaction = new Transaction(transactionString, AccountManager);
-            ProcessTransaction(newTransaction);
+            if (transactionValidator.IsValidTransaction(transactionString))
+            {
+                var newTransaction = new Transaction(transactionString, AccountManager);
+                ProcessTransaction(newTransaction);
+            }
         }
 
     }
