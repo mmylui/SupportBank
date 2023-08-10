@@ -1,5 +1,8 @@
+using NLog;
 class Account
 {
+    private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
     public string Name { get; }
     public decimal Balance;
     public List<Transaction> AccountTransactions;
@@ -24,6 +27,8 @@ class Account
 
     public void PrintAccount()
     {
+        Logger.Info($"Printing transactions for {Name}:");
+
         Console.WriteLine($"Printing transactions for {Name}:");
         foreach (Transaction transaction in AccountTransactions)
         {

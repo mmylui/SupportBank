@@ -1,5 +1,10 @@
+using NLog;
+
+
 class AccountManager
 {
+    private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
     public List <Account> Accounts
     { get; set; }
 
@@ -34,18 +39,24 @@ class AccountManager
 
     public void PrintAccountTransactions(string name)
     {
+        Logger.Info($"Finding account for {name}");
+
         int accountIndex = GetAccountIndex(name);
         if (accountIndex == -1)
         {
+            Logger.Info($"{name} doesn't have account");
             Console.WriteLine("This account does not exist.");
         } else
         {
+            Logger.Info($"Found account for {name}");
             var account = GetAccountByIndex(accountIndex);
             account.PrintAccount();
         }
     }
 
     public void PrintAccountBalances(){
+        Logger.Info($"Printing Account Balances");
+
         Console.WriteLine("Account Balances:");
         foreach (Account account in Accounts){
             account.PrintBalance();

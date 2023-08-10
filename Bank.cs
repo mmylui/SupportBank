@@ -1,5 +1,9 @@
+using NLog;
+
 class Bank
 {
+    private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
+
     private CSVReader CSVReader;
     private AccountManager AccountManager;
     private TransactionManager TransactionManager;
@@ -17,6 +21,8 @@ class Bank
     public bool SetupBank(){
 
         Console.WriteLine("Initialising the bank...");
+        Logger.Info("Initialising the Bank");
+
 
         List<TransactionString> transactionStrings = CSVReader.GetTransactionStrings();
 
@@ -26,15 +32,18 @@ class Bank
             PrintInvalidTransactions(errorMessages);
             Console.WriteLine("Do you want to continue? Invalid Transactions will not be processed.\nType 'Quit' to exit the program or press Enter to continue");
             string userErrorResponse = Console.ReadLine();
+            Logger.Info($"Invalid lines in file. User entered {userErrorResponse}");
+
             if(userErrorResponse == "Quit"){
+                Logger.Info($"Quitting Program from user response");
                 return false;
             }
             Console.WriteLine("Continuing...\n");
         }
 
-
-
         TransactionManager.MakeTransactions(transactionStrings);
+        Logger.Info("Bank Setup Complete");
+
         return true;
 
     }

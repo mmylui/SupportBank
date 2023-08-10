@@ -2,10 +2,12 @@
 using NLog.Config;
 using NLog.Targets;
 
+
+
 var config = new LoggingConfiguration();
 var target = new FileTarget { FileName = Variables.loggingPath, Layout = @"${longdate} ${level} - ${logger}: ${message}" };
 config.AddTarget("File Logger", target);
-config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
+config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, target));
 LogManager.Configuration = config;
 
 Bank SupportBank = new Bank();

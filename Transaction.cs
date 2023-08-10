@@ -18,7 +18,7 @@ class Transaction
         To = accountManager.GetAccountForTransaction(transactionString.To);
         Narrative = transactionString.Narrative;
         Amount = decimal.Parse(transactionString.Amount);
-        // Logger.Info($"Transaction registered on {Date}, from {From}, to {To}, for {Narrative}, amount {Amount}");
+        Logger.Info($"Transaction registered on {Date}, from {From}, to {To}, for {Narrative}, amount {Amount}");
     }
 
     public void PrintTransaction()
