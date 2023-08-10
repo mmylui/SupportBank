@@ -4,7 +4,6 @@ class Bank
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-    private CSVReader CSVReader;
     private AccountManager AccountManager;
     private TransactionManager TransactionManager;
     public UserRequestHandler UserRequestHandler
@@ -12,19 +11,34 @@ class Bank
 
     public Bank()
     {
-        CSVReader = new CSVReader();
         AccountManager = new AccountManager();
         TransactionManager = new TransactionManager(AccountManager);
         UserRequestHandler = new UserRequestHandler(AccountManager, TransactionManager);
     }
 
-    public bool SetupBank(){
+    public bool SetupBank(string fileName){
+
+        // string[] splitFilename = fileName.Split('.');
+        string extension = fileName.Split('.')[^1];
 
         Console.WriteLine("Initialising the bank...");
         Logger.Info("Initialising the Bank");
 
+        List<TransactionString> transactionStrings = new List<TransactionString>();
 
-        List<TransactionString> transactionStrings = CSVReader.GetTransactionStrings();
+        if(extension == "csv"){
+            Logger.Info($"Parsing CSV file");
+            CSVReader csvReader = new CSVReader();
+            transactionStrings = csvReader.GetTransactionStrings(fileName);
+        } else if (extension == "json"){
+            Logger.Info($"Parsing JSON file");
+            JSONReader jsonReader = new JSONReader();
+            transactionStrings = jsonReader.GetTransactionStrings(fileName);
+        } else{
+            Logger.Error($"Invalid File Extension");
+            throw new Exception("Invalid file extension");
+        }
+
 
         List<string> errorMessages = TransactionManager.ValidateTransactions(transactionStrings);
 

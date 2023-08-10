@@ -14,4 +14,14 @@ class TransactionString
         Narrative = subs[3];
         Amount = subs[4];
     }
+
+    public TransactionString(TransactionJSON transactionJSON){
+        Date = transactionJSON.Date;
+        From = transactionJSON.FromAccount;
+        To = transactionJSON.ToAccount;
+        Narrative = transactionJSON.Narrative;
+        Amount = transactionJSON.Amount;
+    }
+
+
 }

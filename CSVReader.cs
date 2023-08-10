@@ -4,9 +4,8 @@ class CSVReader
 {
     private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
 
-    public List<TransactionString> GetTransactionStrings()
+    public List<TransactionString> GetTransactionStrings(string fileName)
     {
-        string fileName = "./DodgyTransactions2015.csv";
         int lineNumber = 0;
         String? line;
         List<TransactionString> TransactionStrings = new List<TransactionString>();

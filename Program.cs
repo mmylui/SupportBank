@@ -12,7 +12,8 @@ LogManager.Configuration = config;
 
 Bank SupportBank = new Bank();
 
-bool bankStartedSuccessfully = SupportBank.SetupBank();
+// bool bankStartedSuccessfully = SupportBank.SetupBank("./DodgyTransactions2015.csv");
+bool bankStartedSuccessfully = SupportBank.SetupBank("./Transactions2013.json");
 
 if(bankStartedSuccessfully){
     UserRequest userRequest = new UserRequest(SupportBank.UserRequestHandler);
