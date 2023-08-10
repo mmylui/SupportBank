@@ -10,24 +10,27 @@ class TransactionManager
         AccountManager = accountManager;
     }
 
-    public List<int> ValidateTransactions(List<TransactionString> transactionStrings)
+    public List<string> ValidateTransactions(List<TransactionString> transactionStrings)
     {
-        List<int> invalidIndexes = new List<int>();
+        List<string> invalidErrorMessages = new List<string>();
         TransactionValidator transactionValidator = new TransactionValidator();
 
         for (int i = 0; i < transactionStrings.Count; i ++)
         {
-            if (!transactionValidator.IsValidTransaction(transactionStrings[i]))
+            ValidationResponse validationResponse = transactionValidator.ReturnValidationResponse(transactionStrings[i], i + 2);
+
+            if (!validationResponse.IsValid)
             {
-                invalidIndexes.Add(i);
+                invalidErrorMessages.Add(validationResponse.ErrorMessage);
             }
         }
         
-        return invalidIndexes;
+        return invalidErrorMessages;
     }
 
     public void MakeTransactions(List<TransactionString> transactionStrings)
-    {   TransactionValidator transactionValidator = new TransactionValidator();
+    {   
+        TransactionValidator transactionValidator = new TransactionValidator();
 
         foreach (TransactionString transactionString in transactionStrings)
         {

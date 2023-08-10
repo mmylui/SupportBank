@@ -10,6 +10,11 @@ LogManager.Configuration = config;
 
 Bank SupportBank = new Bank();
 
-UserRequest userRequest = new UserRequest(SupportBank.UserRequestHandler);
+bool bankStartedSuccessfully = SupportBank.SetupBank();
 
-userRequest.Run();
+if(bankStartedSuccessfully){
+    UserRequest userRequest = new UserRequest(SupportBank.UserRequestHandler);
+    userRequest.Run();
+}
+
+Console.WriteLine("Program Exiting...\n\n");

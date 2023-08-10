@@ -9,23 +9,41 @@ class Bank
     public Bank()
     {
         CSVReader = new CSVReader();
-        List<TransactionString> transactionStrings = CSVReader.GetTransactionStrings();
         AccountManager = new AccountManager();
         TransactionManager = new TransactionManager(AccountManager);
-        List<int> invalidIndexes = TransactionManager.ValidateTransactions(transactionStrings);
-        if (invalidIndexes.Count > 0){
-            PrintInvalidTransactions(invalidIndexes, transactionStrings);
-        }
-        TransactionManager.MakeTransactions(transactionStrings);
-
         UserRequestHandler = new UserRequestHandler(AccountManager, TransactionManager);
     }
 
-    private void PrintInvalidTransactions(List<int> invalidIndexes, List<TransactionString> transactionStrings)
+    public bool SetupBank(){
+
+        Console.WriteLine("Initialising the bank...");
+
+        List<TransactionString> transactionStrings = CSVReader.GetTransactionStrings();
+
+        List<string> errorMessages = TransactionManager.ValidateTransactions(transactionStrings);
+
+        if (errorMessages.Count > 0){
+            PrintInvalidTransactions(errorMessages);
+            Console.WriteLine("Do you want to continue? Invalid Transactions will not be processed.\nType 'Quit' to exit the program or press Enter to continue");
+            string userErrorResponse = Console.ReadLine();
+            if(userErrorResponse == "Quit"){
+                return false;
+            }
+            Console.WriteLine("Continuing...\n");
+        }
+
+
+
+        TransactionManager.MakeTransactions(transactionStrings);
+        return true;
+
+    }
+
+    private void PrintInvalidTransactions(List<string> errorMessages)
     {
-        foreach(int invalidIndex in invalidIndexes)
+        foreach(string errorMessage in errorMessages)
         {
-            Console.WriteLine($"Invalid transaction at line {invalidIndex + 2}");
+            Console.WriteLine(errorMessage);
         }
     }
 }
